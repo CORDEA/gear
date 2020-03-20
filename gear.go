@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -19,6 +20,7 @@ func main() {
 		&Status{},
 	}
 	for {
+		fmt.Print("> ")
 		text, _ := reader.ReadString('\n')
 		parsed := parseCommand(text)
 		for _, cmd := range commands {
