@@ -15,6 +15,7 @@ func main() {
 	commands := [...]Command{
 		&Commit{},
 		&Add{},
+		&Rebase{},
 	}
 	for {
 		text, _ := reader.ReadString('\n')
