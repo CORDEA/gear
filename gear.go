@@ -10,9 +10,20 @@ type command interface {
 	exec()
 }
 
+type commit struct {
+}
+
+func (c *commit) equals(source string) bool {
+	return source == "c"
+}
+
+func (c *commit) exec() {
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	commands := [...]command{
+		&commit{},
 	}
 	for {
 		text, _:= reader.ReadString('\n')
