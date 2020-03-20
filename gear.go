@@ -16,6 +16,7 @@ func main() {
 		&Commit{},
 		&Add{},
 		&Rebase{},
+		&Status{},
 	}
 	for {
 		text, _ := reader.ReadString('\n')
