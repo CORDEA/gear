@@ -14,6 +14,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	commands := [...]Command{
 		&Commit{},
+		&Add{},
 	}
 	for {
 		text, _ := reader.ReadString('\n')
