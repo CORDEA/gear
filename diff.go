@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -15,7 +13,6 @@ func (d *Diff) Equals(source string) bool {
 }
 
 func (d *Diff) Exec(command []string) {
-	var cmd *exec.Cmd
 	existsHead := false
 	for _, cmd := range command[1:] {
 		if strings.Contains(cmd, "HEAD") {
@@ -27,12 +24,8 @@ func (d *Diff) Exec(command []string) {
 	}
 	history := len(command[0]) - 1
 	if existsHead || history == 0 {
-		cmd = exec.Command("git", append([]string{"diff"}, command[1:]...)...)
+		ExecGitCommand(append([]string{"diff"}, command[1:]...))
 	} else {
-		cmd = exec.Command("git", append([]string{"diff", "@~" + strconv.Itoa(history)}, command[1:]...)...)
+		ExecGitCommand(append([]string{"diff", "@~" + strconv.Itoa(history)}, command[1:]...))
 	}
-	cmd.Stdout = os.Stdout
-	cmd.Stdin = os.Stdin
-	cmd.Stderr = os.Stderr
-	_ = cmd.Run()
 }
