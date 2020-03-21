@@ -28,17 +28,32 @@ func main() {
 		},
 		&history,
 	)
+	scroller := NewScroller(&history)
 	var cmd string
+	entered := true
 loop:
 	for {
-		if cmd == "" {
+		if entered {
 			fmt.Print("> ")
+			entered = false
 		}
 		switch ev := termbox.PollEvent(); ev.Type {
 		case termbox.EventKey:
 			switch ev.Key {
 			case termbox.KeyEsc:
 				break loop
+			case termbox.KeyArrowUp:
+				var err error
+				if cmd, err = scroller.ScrollToAbove(); err == nil {
+					termbox.Sync()
+					fmt.Print("> " + cmd)
+				}
+			case termbox.KeyArrowDown:
+				var err error
+				if cmd, err = scroller.ScrollToBelow(); err == nil {
+					termbox.Sync()
+					fmt.Print("> " + cmd)
+				}
 			case termbox.KeyBackspace, termbox.KeyBackspace2:
 				if cmd != "" {
 					cmd = cmd[:len(cmd)-1]
@@ -48,7 +63,9 @@ loop:
 			case termbox.KeyEnter:
 				fmt.Println()
 				handler.Handle(cmd)
+				entered = true
 				cmd = ""
+				scroller.Reset()
 			default:
 				ch := string(ev.Ch)
 				cmd += ch
