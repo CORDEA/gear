@@ -15,6 +15,7 @@ func (c *Commit) equals(source string) bool {
 func (c *Commit) exec(args []string) {
 	cmd := exec.Command("git", append([]string{"commit"}, args...)...)
 	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
 	_ = cmd.Run()
 }
