@@ -1,44 +1,54 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
+	"github.com/nsf/termbox-go"
 )
 
-func parseCommand(cmd string) []string {
-	return strings.Split(cmd, " ")
-}
-
 func main() {
-	reader := bufio.NewReader(os.Stdin)
+	if err := termbox.Init(); err != nil {
+		panic(err)
+	}
+	defer termbox.Close()
 	history := NewHistory()
 	defer history.Close()
-	commands := [...]Command{
-		&Commit{},
-		&Add{},
-		&Rebase{},
-		&Status{},
+	handler := NewHandler(
+		[]Command{
+			&Commit{},
+			&Add{},
+			&Rebase{},
+			&Status{},
+			&history,
+			&Diff{},
+			&Show{},
+			&Log{},
+			&Checkout{},
+			&Branch{},
+			&CheckoutBranch{},
+		},
 		&history,
-		&Diff{},
-		&Show{},
-		&Log{},
-		&Checkout{},
-		&Branch{},
-		&CheckoutBranch{},
-	}
+	)
+	var cmd string
+loop:
 	for {
-		fmt.Print("> ")
-		text, _ := reader.ReadString('\n')
-		trimmed := strings.TrimSpace(text)
-		parsed := parseCommand(trimmed)
-		for _, cmd := range commands {
-			if cmd.Equals(parsed[0]) {
-				cmd.Exec(parsed)
-				history.AddHistory(trimmed)
-				continue
+		if cmd == "" {
+			fmt.Print("> ")
+		}
+		switch ev := termbox.PollEvent(); ev.Type {
+		case termbox.EventKey:
+			switch ev.Key {
+			case termbox.KeyEsc:
+				break loop
+			case termbox.KeyEnter:
+				fmt.Println()
+				handler.Handle(cmd)
+				cmd = ""
+			default:
+				ch := string(ev.Ch)
+				cmd += ch
+				fmt.Print(ch)
 			}
 		}
 	}
+
 }
