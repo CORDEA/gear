@@ -39,6 +39,12 @@ loop:
 			switch ev.Key {
 			case termbox.KeyEsc:
 				break loop
+			case termbox.KeyBackspace, termbox.KeyBackspace2:
+				if cmd != "" {
+					cmd = cmd[:len(cmd)-1]
+					termbox.Sync()
+					fmt.Print("> " + cmd)
+				}
 			case termbox.KeyEnter:
 				fmt.Println()
 				handler.Handle(cmd)
