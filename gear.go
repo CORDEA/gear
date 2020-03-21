@@ -21,6 +21,7 @@ func main() {
 		&Rebase{},
 		&Status{},
 		&history,
+		&Diff{},
 	}
 	for {
 		fmt.Print("> ")
