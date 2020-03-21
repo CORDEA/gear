@@ -22,6 +22,7 @@ func main() {
 		&Status{},
 		&history,
 		&Diff{},
+		&Show{},
 	}
 	for {
 		fmt.Print("> ")
