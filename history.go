@@ -16,7 +16,7 @@ type History struct {
 }
 
 func NewHistory() History {
-	file, err := os.Create(filepath.Join(os.Getenv("HOME"), ".gear_history"))
+	file, err := os.OpenFile(filepath.Join(os.Getenv("HOME"), ".gear_history"), os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		log.Fatalln(err)
 	}
