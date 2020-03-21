@@ -24,6 +24,7 @@ func main() {
 		&Diff{},
 		&Show{},
 		&Log{},
+		&Checkout{},
 	}
 	for {
 		fmt.Print("> ")
