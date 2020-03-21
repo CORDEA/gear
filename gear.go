@@ -28,8 +28,8 @@ func main() {
 		trimmed := strings.TrimSpace(text)
 		parsed := parseCommand(trimmed)
 		for _, cmd := range commands {
-			if cmd.equals(parsed[0]) {
-				cmd.exec(parsed[1:])
+			if cmd.Equals(parsed[0]) {
+				cmd.Exec(parsed)
 				history.AddHistory(trimmed)
 				continue
 			}

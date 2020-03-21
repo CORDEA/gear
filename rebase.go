@@ -8,12 +8,12 @@ import (
 type Rebase struct {
 }
 
-func (r *Rebase) equals(source string) bool {
+func (r *Rebase) Equals(source string) bool {
 	return source == "r" || source == "rebase"
 }
 
-func (r *Rebase) exec(args []string) {
-	cmd := exec.Command("git", append([]string{"rebase"}, args...)...)
+func (r *Rebase) Exec(command []string) {
+	cmd := exec.Command("git", append([]string{"rebase"}, command[1:]...)...)
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr

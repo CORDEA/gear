@@ -1,6 +1,6 @@
 package main
 
 type Command interface {
-	equals(source string) bool
-	exec(args []string)
+	Equals(source string) bool
+	Exec(command []string)
 }

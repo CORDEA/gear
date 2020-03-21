@@ -8,12 +8,12 @@ import (
 type Status struct {
 }
 
-func (s *Status) equals(source string) bool {
+func (s *Status) Equals(source string) bool {
 	return source == "s" || source == "status"
 }
 
-func (s *Status) exec(args []string) {
-	cmd := exec.Command("git", append([]string{"status"}, args...)...)
+func (s *Status) Exec(command []string) {
+	cmd := exec.Command("git", append([]string{"status"}, command[1:]...)...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	_ = cmd.Run()

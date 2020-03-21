@@ -8,12 +8,12 @@ import (
 type Diff struct {
 }
 
-func (d *Diff) equals(source string) bool {
+func (d *Diff) Equals(source string) bool {
 	return source == "d" || source == "diff"
 }
 
-func (d *Diff) exec(args []string) {
-	cmd := exec.Command("git", append([]string{"diff"}, args...)...)
+func (d *Diff) Exec(command []string) {
+	cmd := exec.Command("git", append([]string{"diff"}, command[1:]...)...)
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr

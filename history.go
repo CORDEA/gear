@@ -28,12 +28,12 @@ func NewHistory() History {
 	return History{histories: histories, file: file}
 }
 
-func (h *History) equals(source string) bool {
+func (h *History) Equals(source string) bool {
 	return source == "h" || source == "history"
 }
 
-func (h *History) exec(args []string) {
-	query := strings.Join(args, " ")
+func (h *History) Exec(command []string) {
+	query := strings.Join(command[1:], " ")
 	h.historyMap = map[int]string{}
 	var n = 0
 	for i := len(h.histories) - 1; i >= 0; i-- {
