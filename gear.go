@@ -25,6 +25,7 @@ func main() {
 		&Show{},
 		&Log{},
 		&Checkout{},
+		&Branch{},
 	}
 	for {
 		fmt.Print("> ")
