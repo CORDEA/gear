@@ -17,6 +17,7 @@ func main() {
 		[]command.Command{
 			&command.Commit{},
 			&command.Add{},
+			&command.AddList{},
 			&command.Rebase{},
 			&command.Status{},
 			&history,
