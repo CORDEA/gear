@@ -63,6 +63,9 @@ func main() {
 				entered = true
 				cmd = ""
 				scroller.Reset()
+			case termbox.KeySpace:
+				cmd += " "
+				fmt.Print(" ")
 			default:
 				ch := string(ev.Ch)
 				cmd += ch
