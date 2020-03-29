@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gear/command"
 	"github.com/nsf/termbox-go"
 )
 
@@ -10,25 +11,25 @@ func main() {
 		panic(err)
 	}
 	defer termbox.Close()
-	history := NewHistory()
+	history := command.NewHistory()
 	defer history.Close()
-	handler := NewHandler(
-		[]Command{
-			&Commit{},
-			&Add{},
-			&Rebase{},
-			&Status{},
+	handler := command.NewHandler(
+		[]command.Command{
+			&command.Commit{},
+			&command.Add{},
+			&command.Rebase{},
+			&command.Status{},
 			&history,
-			&Diff{},
-			&Show{},
-			&Log{},
-			&Checkout{},
-			&Branch{},
-			&CheckoutBranch{},
+			&command.Diff{},
+			&command.Show{},
+			&command.Log{},
+			&command.Checkout{},
+			&command.Branch{},
+			&command.CheckoutBranch{},
 		},
 		&history,
 	)
-	scroller := NewScroller(&history)
+	scroller := command.NewScroller(&history)
 	var cmd string
 	entered := true
 	for {
