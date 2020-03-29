@@ -19,6 +19,7 @@ func main() {
 			&command.Add{},
 			&command.AddList{},
 			&command.Rebase{},
+			&command.Reset{},
 			&command.Status{},
 			&history,
 			&command.Diff{},
