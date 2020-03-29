@@ -1,22 +1,12 @@
 package command
 
 import (
-	"bytes"
-	"fmt"
 	"log"
-	"os"
-	"os/exec"
 	"strconv"
-	"strings"
 )
 
 type AddList struct {
 	candidates []candidate
-}
-
-type candidate struct {
-	mode string
-	file string
 }
 
 func (a *AddList) Equals(source string) bool {
@@ -44,29 +34,13 @@ func (a *AddList) Exec(command []string) {
 }
 
 func (a *AddList) listFiles() {
-	cmd := exec.Command("git", "status", "-s")
-	var buffer bytes.Buffer
-	cmd.Stdout = &buffer
-	cmd.Stdin = os.Stdin
-	cmd.Stderr = os.Stderr
-	_ = cmd.Run()
-	result := string(buffer.Bytes())
 	a.candidates = []candidate{}
-	for _, line := range strings.Split(result, "\n") {
-		can := strings.Split(strings.TrimSpace(line), " ")
-		if len(can) != 2 {
-			continue
+	for _, can := range listFiles() {
+		if can.status == unstaged {
+			a.candidates = append(a.candidates, can)
 		}
-		a.candidates = append(a.candidates, candidate{
-			mode: can[0],
-			file: can[1],
-		})
 	}
 	for i, candidate := range a.candidates {
 		candidate.println(i)
 	}
-}
-
-func (c *candidate) println(index int) {
-	fmt.Println(index, ":", c.mode, c.file)
 }
