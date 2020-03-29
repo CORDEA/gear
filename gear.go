@@ -16,6 +16,8 @@ func main() {
 	handler := command.NewHandler(
 		[]command.Command{
 			&command.Commit{},
+			&command.CommitAmend{},
+			&command.CommitMessage{},
 			&command.Add{},
 			&command.AddList{},
 			&command.Rebase{},
