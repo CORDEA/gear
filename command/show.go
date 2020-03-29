@@ -9,6 +9,9 @@ type Show struct {
 }
 
 func (s *Show) Equals(source string) bool {
+	if len(source) < 1 {
+		return false
+	}
 	return source[0] == 'w'
 }
 
