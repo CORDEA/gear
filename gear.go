@@ -18,6 +18,7 @@ func main() {
 			&command.Commit{},
 			&command.CommitAmend{},
 			&command.CommitMessage{},
+			&command.CherryPick{},
 			&command.Add{},
 			&command.AddList{},
 			&command.Rebase{},
