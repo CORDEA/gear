@@ -31,7 +31,6 @@ func main() {
 	scroller := NewScroller(&history)
 	var cmd string
 	entered := true
-loop:
 	for {
 		if entered {
 			fmt.Print("> ")
@@ -40,8 +39,6 @@ loop:
 		switch ev := termbox.PollEvent(); ev.Type {
 		case termbox.EventKey:
 			switch ev.Key {
-			case termbox.KeyEsc:
-				break loop
 			case termbox.KeyArrowUp:
 				var err error
 				if cmd, err = scroller.ScrollToAbove(); err == nil {
