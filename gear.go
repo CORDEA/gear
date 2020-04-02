@@ -34,6 +34,7 @@ func main() {
 			&command.Checkout{},
 			&command.Branch{},
 			&command.CheckoutBranch{},
+			&command.Quit{},
 		},
 		&history,
 	)
