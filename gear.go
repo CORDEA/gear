@@ -25,6 +25,8 @@ func main() {
 			&command.Reset{},
 			&command.RestoreList{},
 			&command.Status{},
+			&command.Stash{},
+			&command.StashApply{},
 			&history,
 			&command.Diff{},
 			&command.Show{},
